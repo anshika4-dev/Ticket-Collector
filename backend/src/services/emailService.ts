@@ -116,7 +116,7 @@ export async function sendBookingConfirmation(data: BookingEmailData): Promise<v
       <!-- QR Code -->
       <div style="text-align:center;margin:30px 0;">
         <p style="color:#aaa;margin:0 0 16px;font-size:14px;">Scan at entrance</p>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}" alt="QR Code" style="width:200px;height:200px;border-radius:12px;border:4px solid #6c63ff;" />
+        <img src="https://quickchart.io/qr?text=${booking.booking_ref}&size=200&margin=2" alt="QR Code" style="width:200px;height:200px;border-radius:12px;border:4px solid #6c63ff;" />
         <p style="color:#666;margin:12px 0 0;font-size:12px;">Booking ID: ${booking.id}</p>
       </div>
     </div>
