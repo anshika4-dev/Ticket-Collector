@@ -16,7 +16,7 @@ export default function Footer() {
           🎟️ <strong>TicketCollector</strong>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '13px' }}>
-          Made with <Heart size={14} color="#f84464" fill="#f84464" style={{ display: 'inline' }} /> by{' '}
+          Made with <Heart size={14} color="var(--accent-purple)" fill="var(--accent-purple)" style={{ display: 'inline' }} /> by{' '}
           <a
             href="https://github.com/anshika4-dev/"
             target="_blank"
