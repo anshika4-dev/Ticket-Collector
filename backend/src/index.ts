@@ -58,9 +58,35 @@ app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+import transporter from './config/mailer';
+
 // Health check
-app.get('/health', (_, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+app.get('/health', async (_, res) => {
+  let mailerStatus = 'unknown';
+  let mailerError = null;
+  try {
+    await new Promise((resolve, reject) => {
+      transporter.verify((err, success) => {
+        if (err) reject(err);
+        else resolve(success);
+      });
+    });
+    mailerStatus = 'ready';
+  } catch (err: any) {
+    mailerStatus = 'failed';
+    mailerError = err.message;
+  }
+
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    mailer: {
+      status: mailerStatus,
+      error: mailerError,
+      user: process.env.GMAIL_USER ? `${process.env.GMAIL_USER.substring(0, 3)}...` : 'not_set',
+      passLength: process.env.GMAIL_APP_PASSWORD ? process.env.GMAIL_APP_PASSWORD.length : 0,
+    }
+  });
 });
 
 // API Routes
