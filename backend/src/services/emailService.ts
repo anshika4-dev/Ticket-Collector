@@ -130,21 +130,28 @@ export async function sendBookingConfirmation(data: BookingEmailData): Promise<v
 </html>
   `;
 
-  await transporter.sendMail({
-    from: `"TicketCollector" <${process.env.GMAIL_USER}>`,
-    to: user.email,
-    subject: `🎟️ Booking Confirmed — ${event.title} [${booking.booking_ref}]`,
-    html,
-    attachments: [
-      {
-        filename: 'ticket-qr.png',
-        content: qrBase64,
-        encoding: 'base64',
-        cid: 'qrcode',
-        contentType: 'image/png',
-      },
-    ],
-  });
+  console.log(`✉️ Attempting to send booking email to: ${user.email} from: ${process.env.GMAIL_USER}...`);
+  try {
+    const info = await transporter.sendMail({
+      from: `"TicketCollector" <${process.env.GMAIL_USER}>`,
+      to: user.email,
+      subject: `🎟️ Booking Confirmed — ${event.title} [${booking.booking_ref}]`,
+      html,
+      attachments: [
+        {
+          filename: 'ticket-qr.png',
+          content: qrBase64,
+          encoding: 'base64',
+          cid: 'qrcode',
+          contentType: 'image/png',
+        },
+      ],
+    });
+    console.log(`✅ Email sent successfully to ${user.email}. Message ID: ${info.messageId}`);
+  } catch (err: any) {
+    console.error(`❌ Failed to send email to ${user.email}:`, err.message);
+    throw err;
+  }
 }
 
 export async function sendWaitlistOffer(data: {

@@ -20,7 +20,7 @@ router.post('/hold', authenticate, async (req: Request, res: Response, next: Nex
 
     // Lock rows for update — SKIP LOCKED prevents two transactions from holding the same seat
     const lockResult = await client.query(`
-      SELECT id, status, held_by FROM show_seats
+      SELECT id, status, held_by, held_until FROM show_seats
       WHERE id = ANY($1::uuid[]) AND event_id = $2
       FOR UPDATE SKIP LOCKED
     `, [seat_ids, event_id]);
@@ -31,8 +31,18 @@ router.post('/hold', authenticate, async (req: Request, res: Response, next: Nex
       return;
     }
 
-    // Check all locked seats are available (or already held by the current user)
-    const unavailable = lockResult.rows.filter(s => s.status !== 'available' && !(s.status === 'held' && s.held_by === req.user!.id));
+    // Check all locked seats are available (or held by current user, or hold has expired)
+    const now = new Date();
+    const unavailable = lockResult.rows.filter(s => {
+      if (s.status === 'available') return false;
+      if (s.status === 'held') {
+        const isSelf = s.held_by === req.user!.id;
+        const isExpired = s.held_until && new Date(s.held_until) < now;
+        if (isSelf || isExpired) return false;
+      }
+      return true;
+    });
+
     if (unavailable.length > 0) {
       await client.query('ROLLBACK');
       res.status(409).json({ error: 'One or more seats are already held or booked.', seats: unavailable });
