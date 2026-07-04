@@ -18,11 +18,11 @@ router.post('/hold', authenticate, async (req: Request, res: Response, next: Nex
 
     await client.query('BEGIN');
 
-    // Lock rows for update — SKIP LOCKED prevents two transactions from holding the same seat
+    // Lock rows for update - waiting for any concurrent locks to release
     const lockResult = await client.query(`
       SELECT id, status, held_by, held_until FROM show_seats
       WHERE id = ANY($1::uuid[]) AND event_id = $2
-      FOR UPDATE SKIP LOCKED
+      FOR UPDATE
     `, [seat_ids, event_id]);
 
     if (lockResult.rows.length !== seat_ids.length) {

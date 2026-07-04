@@ -19,9 +19,10 @@ interface SeatMapProps {
   onToggleSeat: (seatId: string, seat: Seat) => void;
   currentUserId?: string;
   maxSelectable?: number;
+  disabled?: boolean;
 }
 
-export default function SeatMap({ seats, selectedSeats, onToggleSeat, maxSelectable = 10 }: SeatMapProps) {
+export default function SeatMap({ seats, selectedSeats, onToggleSeat, maxSelectable = 10, disabled = false }: SeatMapProps) {
   const rows = Math.max(...seats.map(s => s.row_num), 0);
   const cols = Math.max(...seats.map(s => s.col_num), 0);
 
@@ -36,6 +37,7 @@ export default function SeatMap({ seats, selectedSeats, onToggleSeat, maxSelecta
   };
 
   const handleClick = (seat: Seat) => {
+    if (disabled) return;
     if (seat.status === 'booked') return;
     if (seat.status === 'held' && !selectedSeats.includes(seat.id)) return;
     if (!selectedSeats.includes(seat.id) && selectedSeats.length >= maxSelectable) {

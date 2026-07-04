@@ -163,6 +163,7 @@ export default function SeatSelectionPage() {
                 onToggleSeat={handleToggleSeat}
                 currentUserId={user?.id}
                 maxSelectable={8}
+                disabled={isHolding}
               />
             )}
           </div>
