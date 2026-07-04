@@ -371,6 +371,14 @@ h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-weight: 700;
 /* ====== DASHBOARD GRID ====== */
 .dashboard-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
 
+/* ====== SEAT SELECTION LAYOUT ====== */
+.seat-selection-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 32px;
+  align-items: start;
+}
+
 /* ====== SCREEN-SIZE ====== */
 @media (max-width: 768px) {
   .page { padding: 24px 16px; }
@@ -379,4 +387,5 @@ h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-weight: 700;
   .navbar-links .nav-link span { display: none; }
   .seat { width: 28px; height: 28px; font-size: 8px; }
   .events-grid { grid-template-columns: 1fr; }
+  .seat-selection-layout { grid-template-columns: 1fr; }
 }

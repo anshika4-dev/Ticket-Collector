@@ -36,7 +36,8 @@ export default function SeatMap({ seats, selectedSeats, onToggleSeat, maxSelecta
   };
 
   const handleClick = (seat: Seat) => {
-    if (seat.status === 'booked' || seat.status === 'held') return;
+    if (seat.status === 'booked') return;
+    if (seat.status === 'held' && !selectedSeats.includes(seat.id)) return;
     if (!selectedSeats.includes(seat.id) && selectedSeats.length >= maxSelectable) {
       return; // Max reached
     }
@@ -52,27 +53,11 @@ export default function SeatMap({ seats, selectedSeats, onToggleSeat, maxSelecta
 
   return (
     <div>
-      {/* Screen */}
-      <div style={{
-        textAlign: 'center',
-        marginBottom: '32px',
-        position: 'relative',
-      }}>
-        <div style={{
-          background: 'linear-gradient(180deg, rgba(124,107,255,0.4) 0%, transparent 100%)',
-          height: '6px',
-          borderRadius: '3px 3px 0 0',
-          maxWidth: '400px',
-          margin: '0 auto 8px',
-        }} />
-        <span style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '3px' }}>
-          SCREEN
-        </span>
-      </div>
+      {/* Screen moved to bottom */}
 
       {/* Seat grid */}
       <div className="seat-map-wrapper">
-        <div className="seat-grid" style={{ gridTemplateColumns: `auto repeat(${cols}, 36px)` }}>
+        <div className="seat-grid" style={{ gridTemplateColumns: `auto repeat(${cols}, min-content)` }}>
           {Array.from({ length: rows }, (_, ri) => {
             const rowNum = ri + 1;
             return (
@@ -95,7 +80,7 @@ export default function SeatMap({ seats, selectedSeats, onToggleSeat, maxSelecta
                   const colNum = ci + 1;
                   const seat = seatMap[`${rowNum}-${colNum}`];
                   if (!seat) {
-                    return <div key={`${rowNum}-${colNum}`} style={{ width: 36, height: 36 }} />;
+                    return <div key={`${rowNum}-${colNum}`} style={{ width: '100%', height: '100%' }} />;
                   }
                   return (
                     <div
@@ -120,6 +105,24 @@ export default function SeatMap({ seats, selectedSeats, onToggleSeat, maxSelecta
             );
           })}
         </div>
+      </div>
+
+      {/* Screen (at the bottom) */}
+      <div style={{
+        textAlign: 'center',
+        marginTop: '32px',
+        position: 'relative',
+      }}>
+        <span style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '3px' }}>
+          SCREEN
+        </span>
+        <div style={{
+          background: 'linear-gradient(0deg, rgba(124,107,255,0.4) 0%, transparent 100%)',
+          height: '6px',
+          borderRadius: '0 0 3px 3px',
+          maxWidth: '400px',
+          margin: '8px auto 0',
+        }} />
       </div>
 
       {/* Legend */}

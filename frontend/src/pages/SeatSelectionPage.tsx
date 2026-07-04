@@ -148,7 +148,7 @@ export default function SeatSelectionPage() {
           </div>
         )}
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 32, alignItems: 'start' }}>
+        <div className="seat-selection-layout">
           {/* Seat Map */}
           <div className="card" style={{ overflowX: 'auto' }}>
             {seats.length === 0 ? (
