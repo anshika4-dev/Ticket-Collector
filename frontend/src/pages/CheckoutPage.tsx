@@ -66,9 +66,14 @@ export default function CheckoutPage() {
             <CheckCircle size={72} color="var(--accent-emerald)" style={{ margin: '0 auto' }} />
           </div>
           <h1 style={{ fontSize: 32, marginBottom: 12 }}>Booking Confirmed! 🎉</h1>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: 24 }}>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: 12 }}>
             Your ticket has been sent to <strong>{user?.email}</strong> with a QR code.
           </p>
+          <div style={{ background: 'rgba(255, 193, 7, 0.1)', border: '1px solid rgba(255, 193, 7, 0.3)', borderRadius: 8, padding: 12, marginBottom: 24, display: 'inline-block' }}>
+            <p style={{ color: '#ffb347', margin: 0, fontSize: 14 }}>
+              ⚠️ Please check your <strong>Spam</strong> or <strong>Promotions</strong> folder if you don't see it in your inbox!
+            </p>
+          </div>
           <div className="card" style={{ textAlign: 'left', marginBottom: 24 }}>
             <p style={{ color: 'var(--text-muted)', fontSize: 12, textAlign: 'center', marginBottom: 8, letterSpacing: 2, textTransform: 'uppercase' }}>Booking Reference</p>
             <p style={{ fontSize: 28, fontWeight: 800, textAlign: 'center', color: 'var(--accent-purple)', letterSpacing: 4 }}>{booking.booking_ref}</p>
