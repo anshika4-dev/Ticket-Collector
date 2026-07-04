@@ -27,7 +27,7 @@ router.post('/', authenticate, async (req: Request, res: Response, next: NextFun
       JOIN venue_seats vs ON ss.venue_seat_id = vs.id
       LEFT JOIN seat_categories sc ON sc.id = vs.category_id
       WHERE ss.id = ANY($1::uuid[]) AND ss.event_id = $2
-      FOR UPDATE
+      FOR UPDATE OF ss
     `, [seat_ids, event_id]);
 
     for (const seat of seatCheck.rows) {

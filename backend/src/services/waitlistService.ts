@@ -19,12 +19,12 @@ export async function checkAndOfferWaitlist(eventId: string, categoryId: string 
           SELECT ss.id FROM show_seats ss
           JOIN venue_seats vs ON ss.venue_seat_id = vs.id
           WHERE ss.event_id = $1 AND vs.category_id = $2 AND ss.status = 'available'
-          LIMIT 1 FOR UPDATE SKIP LOCKED
+          LIMIT 1 FOR UPDATE OF ss SKIP LOCKED
         `
       : `
           SELECT ss.id FROM show_seats ss
           WHERE ss.event_id = $1 AND ss.status = 'available'
-          LIMIT 1 FOR UPDATE SKIP LOCKED
+          LIMIT 1 FOR UPDATE OF ss SKIP LOCKED
         `;
 
     const seatResult = categoryId
@@ -46,7 +46,7 @@ export async function checkAndOfferWaitlist(eventId: string, categoryId: string 
           JOIN users u ON w.user_id = u.id
           WHERE w.event_id = $1 AND w.category_id = $2 AND w.status = 'waiting'
           ORDER BY w.position ASC
-          LIMIT 1 FOR UPDATE SKIP LOCKED
+          LIMIT 1 FOR UPDATE OF w SKIP LOCKED
         `
       : `
           SELECT w.*, u.name as user_name, u.email as user_email
@@ -54,7 +54,7 @@ export async function checkAndOfferWaitlist(eventId: string, categoryId: string 
           JOIN users u ON w.user_id = u.id
           WHERE w.event_id = $1 AND w.status = 'waiting'
           ORDER BY w.position ASC
-          LIMIT 1 FOR UPDATE SKIP LOCKED
+          LIMIT 1 FOR UPDATE OF w SKIP LOCKED
         `;
 
     const waitlistResult = categoryId
