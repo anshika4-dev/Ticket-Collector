@@ -2,35 +2,35 @@
 
 /* ====== CSS VARIABLES ====== */
 :root {
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #12121c;
-  --bg-card: #1a1a2e;
-  --bg-glass: rgba(255, 255, 255, 0.05);
-  --bg-glass-hover: rgba(255, 255, 255, 0.08);
+  --bg-primary: #f2f5f9;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-glass: #f4f6fa;
+  --bg-glass-hover: #e9ecf2;
 
-  --accent-purple: #7c6bff;
-  --accent-pink: #ff6b9d;
-  --accent-gold: #ffd700;
-  --accent-emerald: #00d97e;
-  --accent-orange: #ff8c42;
+  --accent-purple: #f84464; /* BookMyShow Red */
+  --accent-pink: #ff6b8b;
+  --accent-gold: #ffc107;
+  --accent-emerald: #4caf50;
+  --accent-orange: #ff9800;
 
-  --text-primary: #f0f0ff;
-  --text-secondary: #9090b0;
-  --text-muted: #555580;
+  --text-primary: #1f2533;
+  --text-secondary: #616e8c;
+  --text-muted: #9fa6b2;
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(124, 107, 255, 0.4);
+  --border-subtle: #e2e8f0;
+  --border-glow: rgba(248, 68, 100, 0.2);
 
   --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 18px;
 
-  --shadow-glow: 0 0 40px rgba(124, 107, 255, 0.15);
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 4px 20px rgba(248, 68, 100, 0.08);
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.04);
 
   --transition: all 0.2s ease;
-  --transition-slow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ====== RESET ====== */
@@ -219,11 +219,11 @@ h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-weight: 700;
   font-weight: 600;
   letter-spacing: 0;
 }
-.seat-available { background: rgba(0, 217, 126, 0.15); border-color: #00d97e; color: #00d97e; }
-.seat-available:hover { background: rgba(0, 217, 126, 0.3); transform: scale(1.1); }
-.seat-held { background: rgba(255, 215, 0, 0.15); border-color: var(--accent-gold); color: var(--accent-gold); cursor: not-allowed; }
-.seat-booked { background: rgba(255, 255, 255, 0.05); border-color: #333; color: #444; cursor: not-allowed; }
-.seat-selected { background: rgba(124, 107, 255, 0.3); border-color: var(--accent-purple); color: var(--accent-purple); transform: scale(1.1); box-shadow: 0 0 12px rgba(124, 107, 255, 0.5); }
+.seat-available { background: #ffffff; border-color: #1a9e5c; color: #1a9e5c; }
+.seat-available:hover { background: #e8f5e9; transform: scale(1.1); }
+.seat-held { background: #fffde7; border-color: var(--accent-gold); color: #b78103; cursor: not-allowed; }
+.seat-booked { background: #e4e7eb; border-color: #cbd5e1; color: #94a3b8; cursor: not-allowed; }
+.seat-selected { background: #1a9e5c; border-color: #1a9e5c; color: #ffffff; transform: scale(1.1); box-shadow: 0 4px 12px rgba(26, 158, 92, 0.3); }
 .seat-legend { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 16px; }
 .seat-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
 .seat-legend-dot { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid; }
@@ -239,12 +239,12 @@ h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-weight: 700;
 }
 .event-card:hover { transform: translateY(-4px); border-color: var(--border-glow); box-shadow: var(--shadow-glow); }
 .event-card-img { width: 100%; height: 200px; object-fit: cover; }
-.event-card-img-placeholder { width: 100%; height: 200px; background: linear-gradient(135deg, #1a1a3e, #2a1a4e); display: flex; align-items: center; justify-content: center; font-size: 48px; }
+.event-card-img-placeholder { width: 100%; height: 200px; background: linear-gradient(135deg, #f84464, #ff6b8b); display: flex; align-items: center; justify-content: center; font-size: 48px; }
 .event-card-body { padding: 20px; }
 
 /* ====== NAVBAR ====== */
 .navbar {
-  background: rgba(10, 10, 15, 0.8);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-subtle);
   position: sticky;
@@ -257,7 +257,7 @@ h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-weight: 700;
 .navbar-links { display: flex; align-items: center; gap: 8px; }
 .nav-link { padding: 6px 14px; border-radius: var(--radius-sm); color: var(--text-secondary); font-size: 14px; font-weight: 500; transition: var(--transition); }
 .nav-link:hover, .nav-link.active { color: var(--text-primary); background: var(--bg-glass); }
-.nav-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; cursor: pointer; }
+.nav-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: white; cursor: pointer; }
 
 /* ====== PAGE LAYOUT ====== */
 .page { flex: 1; padding: 32px 24px; }

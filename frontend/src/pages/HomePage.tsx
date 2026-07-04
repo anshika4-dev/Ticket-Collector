@@ -85,11 +85,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-subtle)', padding: '32px 24px', textAlign: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
-        <div className="navbar-logo" style={{ marginBottom: 8 }}>🎟️ TicketCollector</div>
-        <p>© 2026 TicketCollector. Your gateway to amazing experiences.</p>
-      </footer>
     </main>
   );
 }

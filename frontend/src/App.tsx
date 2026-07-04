@@ -22,6 +22,8 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 1, staleTime: 30000 } },
 });
 
+import Footer from './components/Footer';
+
 function ProtectedRoute({ children, roles }: { children: React.ReactNode; roles?: string[] }) {
   const { user, loading } = useAuth();
   if (loading) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}><div className="spinner" /></div>;
@@ -50,6 +52,7 @@ function AppRoutes() {
         <Route path="/organiser/create-event" element={<ProtectedRoute roles={['organiser', 'admin']}><CreateEventPage /></ProtectedRoute>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <Footer />
     </>
   );
 }
@@ -64,14 +67,15 @@ export default function App() {
             position="top-right"
             toastOptions={{
               style: {
-                background: '#1a1a2e',
-                color: '#f0f0ff',
-                border: '1px solid rgba(255,255,255,0.08)',
+                background: '#ffffff',
+                color: '#1f2533',
+                border: '1px solid #e2e8f0',
                 borderRadius: '12px',
                 fontSize: '14px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
               },
-              success: { iconTheme: { primary: '#00d97e', secondary: '#0a0a0f' } },
-              error: { iconTheme: { primary: '#ff4757', secondary: '#0a0a0f' } },
+              success: { iconTheme: { primary: '#4caf50', secondary: '#ffffff' } },
+              error: { iconTheme: { primary: '#f84464', secondary: '#ffffff' } },
             }}
           />
         </BrowserRouter>
