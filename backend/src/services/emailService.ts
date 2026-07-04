@@ -1,6 +1,7 @@
 import QRCode from 'qrcode';
-import transporter from '../config/mailer';
 import pool from '../config/db';
+
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgt2QmKw4c9jnitMkYbBicALJ6ZiG_ngb1ds3CJp8gW_bDbYFnw188Q_btdpaASbE7KQ/exec';
 
 interface BookingEmailData {
   booking: {
@@ -130,24 +131,28 @@ export async function sendBookingConfirmation(data: BookingEmailData): Promise<v
 </html>
   `;
 
-  console.log(`✉️ Attempting to send booking email to: ${user.email} from: ${process.env.GMAIL_USER}...`);
+  console.log(`✉️ Attempting to send booking email to: ${user.email} via Google Apps Script...`);
   try {
-    const info = await transporter.sendMail({
-      from: `"TicketCollector" <${process.env.GMAIL_USER}>`,
-      to: user.email,
-      subject: `🎟️ Booking Confirmed — ${event.title} [${booking.booking_ref}]`,
-      html,
-      attachments: [
-        {
-          filename: 'ticket-qr.png',
-          content: qrBase64,
-          encoding: 'base64',
-          cid: 'qrcode',
-          contentType: 'image/png',
-        },
-      ],
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to: user.email,
+        subject: `🎟️ Booking Confirmed — ${event.title} [${booking.booking_ref}]`,
+        html,
+        qrBase64
+      })
     });
-    console.log(`✅ Email sent successfully to ${user.email}. Message ID: ${info.messageId}`);
+    
+    if (!response.ok) {
+      throw new Error(`Google Script returned ${response.status}`);
+    }
+    const result = await response.json();
+    if (result.error) {
+      throw new Error(result.error);
+    }
+    
+    console.log(`✅ Email sent successfully to ${user.email} via Google Apps Script`);
   } catch (err: any) {
     console.error(`❌ Failed to send email to ${user.email}:`, err.message);
     throw err;
@@ -203,10 +208,28 @@ export async function sendWaitlistOffer(data: {
 </html>
   `;
 
-  await transporter.sendMail({
-    from: `"TicketCollector" <${process.env.GMAIL_USER}>`,
-    to: user.email,
-    subject: `⚡ Seat Available — ${event.title} | Act fast!`,
-    html,
-  });
+  console.log(`✉️ Attempting to send waitlist email to: ${user.email} via Google Apps Script...`);
+  try {
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to: user.email,
+        subject: `⚡ Seat Available — ${event.title} | Act fast!`,
+        html
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Google Script returned ${response.status}`);
+    }
+    const result = await response.json();
+    if (result.error) {
+      throw new Error(result.error);
+    }
+    console.log(`✅ Waitlist email sent to ${user.email}`);
+  } catch (err: any) {
+    console.error(`❌ Failed to send waitlist email to ${user.email}:`, err.message);
+    throw err;
+  }
 }
