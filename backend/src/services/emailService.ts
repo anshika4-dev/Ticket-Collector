@@ -1,7 +1,7 @@
 import QRCode from 'qrcode';
 import pool from '../config/db';
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgt2QmKw4c9jnitMkYbBicALJ6ZiG_ngb1ds3CJp8gW_bDbYFnw188Q_btdpaASbE7KQ/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx9vaTqVAZtFnHAsKZTEqkcR5VIDywDu62RjHdmFjvwkUtHvep1BbuJtA71hSIQnML4Zg/exec';
 
 interface BookingEmailData {
   booking: {
