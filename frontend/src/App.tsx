@@ -67,15 +67,15 @@ export default function App() {
             position="top-right"
             toastOptions={{
               style: {
-                background: 'var(--bg-card)',
-                color: 'var(--text-primary)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: '8px',
+                background: '#ffffff',
+                color: '#1f2533',
+                border: '1px solid #e2e8f0',
+                borderRadius: '12px',
                 fontSize: '14px',
-                boxShadow: 'var(--shadow-card)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
               },
-              success: { iconTheme: { primary: 'var(--accent-purple)', secondary: '#000000' } },
-              error: { iconTheme: { primary: '#ef4444', secondary: '#ffffff' } },
+              success: { iconTheme: { primary: '#4caf50', secondary: '#ffffff' } },
+              error: { iconTheme: { primary: '#f84464', secondary: '#ffffff' } },
             }}
           />
         </BrowserRouter>
