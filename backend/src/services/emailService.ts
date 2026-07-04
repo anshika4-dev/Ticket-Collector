@@ -147,7 +147,7 @@ export async function sendBookingConfirmation(data: BookingEmailData): Promise<v
     if (!response.ok) {
       throw new Error(`Google Script returned ${response.status}`);
     }
-    const result = await response.json();
+    const result = (await response.json()) as any;
     if (result.error) {
       throw new Error(result.error);
     }
@@ -223,7 +223,7 @@ export async function sendWaitlistOffer(data: {
     if (!response.ok) {
       throw new Error(`Google Script returned ${response.status}`);
     }
-    const result = await response.json();
+    const result = (await response.json()) as any;
     if (result.error) {
       throw new Error(result.error);
     }
