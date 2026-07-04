@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 import { Calendar, MapPin, Ticket } from 'lucide-react';
 import { format } from 'date-fns';

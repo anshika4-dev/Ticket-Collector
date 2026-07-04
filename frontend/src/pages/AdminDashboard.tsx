@@ -1,7 +1,5 @@
-import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
-import { Users, Calendar, Ticket, DollarSign, PlusCircle, Shield } from 'lucide-react';
+import { Users, Calendar, Ticket, DollarSign, Shield } from 'lucide-react';
 import { adminAPI } from '../api';
 
 export default function AdminDashboard() {

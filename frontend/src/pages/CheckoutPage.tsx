@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, CheckCircle, Loader2, Clock } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { bookingsAPI } from '../api';
 import { useAuth } from '../contexts/AuthContext';
-import { format } from 'date-fns';
 
 export default function CheckoutPage() {
   const { user } = useAuth();

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Search, Filter, SlidersHorizontal } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { eventsAPI } from '../api';
 import EventCard from '../components/EventCard';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Ticket, Zap, Shield, Clock, ArrowRight } from 'lucide-react';

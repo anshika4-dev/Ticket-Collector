@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { PlusCircle, BarChart2, Calendar, Ticket, DollarSign, Eye } from 'lucide-react';
+import { PlusCircle, Calendar, Ticket, DollarSign, Eye } from 'lucide-react';
 import { format } from 'date-fns';
 import { organiserAPI } from '../api';
 

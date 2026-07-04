@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Clock, ArrowRight, X, ShoppingCart } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { eventsAPI, seatsAPI } from '../api';
@@ -11,7 +11,7 @@ export default function SeatSelectionPage() {
   const { id: eventId } = useParams<{ id: string }>();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+
 
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [selectedSeatData, setSelectedSeatData] = useState<any[]>([]);
@@ -34,18 +34,19 @@ export default function SeatSelectionPage() {
   });
 
   // Check existing hold on mount
-  useQuery({
+  const { data: existingHold } = useQuery({
     queryKey: ['my-hold', eventId],
     queryFn: () => seatsAPI.myHold(eventId!).then(r => r.data),
-    onSuccess: (held: any[]) => {
-      if (held.length > 0) {
-        setSelectedSeats(held.map((s: any) => s.id));
-        setSelectedSeatData(held);
-        setHoldUntil(new Date(held[0].held_until));
-      }
-    },
     enabled: !!eventId,
-  } as any);
+  });
+
+  useEffect(() => {
+    if (existingHold && existingHold.length > 0) {
+      setSelectedSeats(existingHold.map((s: any) => s.id));
+      setSelectedSeatData(existingHold);
+      setHoldUntil(new Date(existingHold[0].held_until));
+    }
+  }, [existingHold]);
 
   // Countdown timer
   useEffect(() => {

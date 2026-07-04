@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { PlusCircle, Trash2, Loader2 } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { PlusCircle, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { eventsAPI, venuesAPI } from '../api';
 

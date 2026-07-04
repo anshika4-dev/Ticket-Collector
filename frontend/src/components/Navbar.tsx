@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Ticket, LogOut, User, LayoutDashboard, PlusCircle, Menu, X } from 'lucide-react';
+import { LogOut, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [menuOpen, setMenuOpen] = useState(false);
+
 
   const handleLogout = () => {
     logout();
