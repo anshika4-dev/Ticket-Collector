@@ -24,7 +24,25 @@ const httpServer = createServer(app);
 // Security middleware
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    
+    const allowed = [
+      process.env.FRONTEND_URL,
+      'http://localhost:5173',
+      'http://localhost:3000'
+    ];
+    
+    const isAllowed = allowed.includes(origin) || 
+                      origin.endsWith('.vercel.app') || 
+                      (process.env.FRONTEND_URL && origin.startsWith(process.env.FRONTEND_URL));
+
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 
