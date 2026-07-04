@@ -31,8 +31,8 @@ router.post('/hold', authenticate, async (req: Request, res: Response, next: Nex
       return;
     }
 
-    // Check all locked seats are available
-    const unavailable = lockResult.rows.filter(s => s.status !== 'available');
+    // Check all locked seats are available (or already held by the current user)
+    const unavailable = lockResult.rows.filter(s => s.status !== 'available' && !(s.status === 'held' && s.held_by === req.user!.id));
     if (unavailable.length > 0) {
       await client.query('ROLLBACK');
       res.status(409).json({ error: 'One or more seats are already held or booked.', seats: unavailable });
